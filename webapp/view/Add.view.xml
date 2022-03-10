@@ -1,0 +1,64 @@
+<mvc:View
+    controllerName="nvid.xx.zsalesordxx.controller.Add"
+    displayBlock="true"
+    height="100%"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc">
+    <Page title="Add Order">
+        <content>
+            <f:SimpleForm>
+                <Text text="Buyer Id"></Text>
+                <Input value="{order>/orderdata/buyerId}" showSuggestion="true" suggestionItems="{/SupplierSet}">
+                    <suggestionItems>
+                        <core:Item text="{BP_ID}" key="{COMPANY_NAME}" />
+                    </suggestionItems>
+                </Input>
+
+            </f:SimpleForm>
+            <Table id="idOrdTable" items="{order>/orderdata/To_Items}">
+				<headerToolbar>
+					<OverflowToolbar id="otbSubheader">
+						<Title text="Order Items" level="H2" />
+						<ToolbarSpacer />
+						<Button id="addButton" text="Add Rows" type="Transparent"
+							press="onAddRow" />
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column width="12em">
+						<Text text="Product" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="End">
+						<Text text="Quantity" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+						<Text text="Note" />
+					</Column>
+					<Column hAlign="End">
+						<Text text="Price" />
+					</Column>
+                    <Column>
+
+                    </Column>
+				</columns>
+				<items>
+					<ColumnListItem vAlign="Middle">
+						<cells>
+                            <Input value="{order>ProductId}" showSuggestion="true" suggestionItems="{/ProductSet}">
+                                <suggestionItems>
+                                    <core:Item text="{PRODUCT_ID}" key="{NAME}" />
+                                </suggestionItems>
+                            </Input>
+                            <Input value="{order>Quantity}"></Input>
+                            <Input value="{order>Note}"></Input>
+                            <Input value="{order>GrossAmount}"></Input>
+                            <Button icon="sap-icon://delete" press="onDeleteRow"></Button>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+        </content>
+    </Page>
+</mvc:View>

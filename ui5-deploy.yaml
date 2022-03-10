@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "2.5"
+metadata:
+  name: nvid.xx.zsalesordxx
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          url: http://103.207.171.202:8021/
+          client: "800"
+        app:
+          name: ZSALESORD_XX
+          description: my deploy
+          package: $TMP
+          transport: ""
