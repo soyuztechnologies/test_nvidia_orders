@@ -7,6 +7,8 @@ sap.ui.define([
     return BaseController.extend("nvid.xx.zsalesordxx.controller.Add", {
 
         onInit : function () {
+            this.getRouter().getRoute("add").attachPatternMatched(this._onObjectMatched, this);
+            
             var oModel = new JSONModel();
             oModel.setData({
                 orderdata: {
@@ -27,6 +29,9 @@ sap.ui.define([
             this.getView().setModel(oModel,"order");
             this.localModel = oModel;
         },
+        _onObjectMatched: function(){
+            this.getModel("appView").setProperty("/layout", "TwoColumnsMidExpanded");
+        },
         itemData: {
             "ProductId" : "",
             "Note" : "",
@@ -37,14 +42,20 @@ sap.ui.define([
         },
         onDeleteRow: function(oEvent){
             var oItem = oEvent.getSource().getParent();
-            var oItemPath = oItem;
-            var oTable = this.getView().byId("idOrdTable");
-            oTable.removeItem(oItemPath);
+            var sItemPath = oItem.getBindingContextPath();
+            var sIndex = sItemPath.split("/")[sItemPath.split("/").length - 1];
+            var items = this.localModel.getProperty("/orderdata/To_Items");
+            items.splice(sIndex,1);
+            this.localModel.setProperty("/orderdata/To_Items", items);
+
+            // var oTable = this.getView().byId("idOrdTable");
+            // oTable.removeItem(oItemPath);
         },
         onAddRow: function(){
             var items = this.localModel.getProperty("/orderdata/To_Items");
             items.push(this.itemData);
             this.localModel.setProperty("/orderdata/To_Items", items);
+            
         }
 
     });
