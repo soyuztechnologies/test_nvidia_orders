@@ -10,9 +10,9 @@
         <content>
             <f:SimpleForm>
                 <Text text="Buyer Id"></Text>
-                <Input value="{order>/orderdata/buyerId}" showSuggestion="true" suggestionItems="{/SupplierSet}">
+                <Input value="{order>/orderdata/BuyerId}" showSuggestion="true" suggestionItems="{/SupplierSet}">
                     <suggestionItems>
-                        <core:Item text="{BP_ID}" key="{COMPANY_NAME}" />
+                        <core:ListItem text="{BP_ID}" additionalText="{COMPANY_NAME}" />
                     </suggestionItems>
                 </Input>
 
@@ -48,7 +48,7 @@
 						<cells>
                             <Input value="{order>ProductId}" showSuggestion="true" suggestionItems="{/ProductSet}">
                                 <suggestionItems>
-                                    <core:Item text="{PRODUCT_ID}" key="{NAME}" />
+                                    <core:ListItem text="{PRODUCT_ID}" additionalText="{NAME}" />
                                 </suggestionItems>
                             </Input>
                             <Input value="{order>Quantity}"></Input>
@@ -60,5 +60,11 @@
 				</items>
 			</Table>
         </content>
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer></ToolbarSpacer>
+                <Button text="Save" press="onSave" type="Accept"></Button>
+            </Toolbar>
+        </footer>
     </Page>
 </mvc:View>
